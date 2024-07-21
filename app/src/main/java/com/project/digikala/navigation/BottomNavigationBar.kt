@@ -84,6 +84,7 @@ fun BottomNavigationBar(
                             }
                             Text(text = item.name,
                                 textAlign = TextAlign.Center,
+                                style = androidx.compose.material3.MaterialTheme.typography.bodyLarge,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(top = 5.dp))
 
