@@ -1,6 +1,6 @@
 package com.project.digikala.di
 
-import com.project.digikala.data.remote.ApiInterface
+import com.project.digikala.data.remote.HomeApiInterface
 import com.project.digikala.util.Constants.BASE_URL
 import com.project.digikala.util.Constants.TIMEOUT_IN_SECOND
 import dagger.Module
@@ -11,7 +11,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -45,9 +44,6 @@ object NetworkModule {
             .client(okHttpClient)
             .build()
 
-    @Provides
-    @Singleton
-    fun provideApiInterface(retrofit: Retrofit) : ApiInterface =
-        retrofit.create(ApiInterface::class.java)
+
 
 }

@@ -1,4 +1,4 @@
-package com.project.digikala.ui.screens
+package com.project.digikala.ui.screens.home
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

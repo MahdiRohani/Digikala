@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.project.digikala.ui.screens.BasketScreen
 import com.project.digikala.ui.screens.CategoryScreen
-import com.project.digikala.ui.screens.HomeScreen
+import com.project.digikala.ui.screens.home.HomeScreen
 import com.project.digikala.ui.screens.ProfileScreen
 import com.project.digikala.ui.screens.SplashScreen
 
