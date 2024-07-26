@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,6 +8,12 @@ plugins {
     kotlin("kapt")
     id ("com.google.dagger.hilt.android")
 }
+
+val apikeyPropertiesFile: File = rootProject.file("key.properties")
+val apikeyProperties = Properties()
+apikeyProperties.load(FileInputStream(apikeyPropertiesFile))
+val xApiKey = apikeyProperties.getProperty("X_API_KEY")
+
 
 android {
     namespace = "com.project.digikala"
@@ -17,10 +26,15 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        buildConfigField("String", "X_API_KEY", "\"$xApiKey\"")
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+    }
+    buildFeatures {
+        buildConfig = true
     }
 
     buildTypes {
@@ -102,6 +116,11 @@ dependencies {
 
     //system ui controller
     implementation("com.google.accompanist:accompanist-systemuicontroller:0.28.0")
+
+    //Accompanist-Pager
+    implementation ("com.google.accompanist:accompanist-pager:0.29.0-alpha")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.29.0-alpha")
+
 }
 
 // Allow references to generated code
