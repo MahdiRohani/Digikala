@@ -67,5 +67,6 @@ fun SwipeRefreshSection(viewModel: HomeViewModel, navController: NavHostControll
 }
 
 private suspend fun refreshDataFromServer(viewModel: HomeViewModel) {
-    viewModel.getSlider()
+    viewModel.getAllDataFromServer()
+
 }
