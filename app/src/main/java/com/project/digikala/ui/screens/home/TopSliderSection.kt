@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,6 +37,7 @@ import com.google.accompanist.pager.HorizontalPagerIndicator
 import com.google.accompanist.pager.rememberPagerState
 import com.project.digikala.data.model.home.Slider
 import com.project.digikala.data.remote.NetworkResult
+import com.project.digikala.ui.components.OurLoading
 import com.project.digikala.ui.theme.LocalShape
 import com.project.digikala.ui.theme.LocalSpacing
 import com.project.digikala.viewmodel.HomeViewModel
@@ -69,81 +71,89 @@ fun TopSliderSection(viewModel: HomeViewModel = hiltViewModel()) {
         }
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp)
-            .background(Color.White)
-    ) {
+    if (loading) {
+        val config = LocalConfiguration.current
+        OurLoading(config.screenHeightDp.dp, true)
+    } else{
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight()
-                .padding(
-                    horizontal = LocalSpacing.current.extraSmall,
-                    vertical = LocalSpacing.current.small
-                )
+                .height(200.dp)
+                .background(Color.White)
         ) {
-            val pagerState = rememberPagerState()
-            var imageUrl by remember {
-                mutableStateOf("")
-            }
-            HorizontalPager(
-                count = sliderList.size,
-                state = pagerState,
-                contentPadding = PaddingValues(horizontal = LocalSpacing.current.medium),
+            Column(
                 modifier = Modifier
-                    .weight(1f)
                     .fillMaxWidth()
-            ) { index ->
-                imageUrl = sliderList[index].image
-                Box(
-                    modifier = Modifier.fillMaxSize(),
-                    contentAlignment = Alignment.BottomCenter
-                ) {
-                    val painter = rememberAsyncImagePainter(
-                        ImageRequest.Builder(LocalContext.current)
-                            .data(data = imageUrl)
-                            .apply(
-                                block = fun ImageRequest.Builder.() {
-                                    scale(Scale.FILL)
-                                }
-                            )
-                            .build()
+                    .fillMaxHeight()
+                    .padding(
+                        horizontal = LocalSpacing.current.extraSmall,
+                        vertical = LocalSpacing.current.small
                     )
-                    Image(
-                        painter = painter, contentDescription = "",
-                        modifier = Modifier
-                            .padding(LocalSpacing.current.small)
-                            .clip(LocalShape.current.medium)
-                            .fillMaxSize(),
-                        contentScale = ContentScale.FillBounds
-                    )
-                    HorizontalPagerIndicator(
-                        pagerState = pagerState,
-                        modifier = Modifier
-                            .align(Alignment.BottomEnd)
-                            .padding(LocalSpacing.current.semiLarge),
-                        activeColor = Color.Black,
-                        inactiveColor = Color.LightGray,
-                        indicatorWidth = LocalSpacing.current.small,
-                        indicatorHeight = LocalSpacing.current.small,
-                        indicatorShape = CircleShape
-                    )
-
+            ) {
+                val pagerState = rememberPagerState()
+                var imageUrl by remember {
+                    mutableStateOf("")
                 }
-            }
+                HorizontalPager(
+                    count = sliderList.size,
+                    state = pagerState,
+                    contentPadding = PaddingValues(horizontal = LocalSpacing.current.medium),
+                    modifier = Modifier
+                        .weight(1f)
+                        .fillMaxWidth()
+                ) { index ->
+                    imageUrl = sliderList[index].image
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.BottomCenter
+                    ) {
+                        val painter = rememberAsyncImagePainter(
+                            ImageRequest.Builder(LocalContext.current)
+                                .data(data = imageUrl)
+                                .apply(
+                                    block = fun ImageRequest.Builder.() {
+                                        scale(Scale.FILL)
+                                    }
+                                )
+                                .build()
+                        )
+                        Image(
+                            painter = painter, contentDescription = "",
+                            modifier = Modifier
+                                .padding(LocalSpacing.current.small)
+                                .clip(LocalShape.current.medium)
+                                .fillMaxSize(),
+                            contentScale = ContentScale.FillBounds
+                        )
+                        HorizontalPagerIndicator(
+                            pagerState = pagerState,
+                            modifier = Modifier
+                                .align(Alignment.BottomEnd)
+                                .padding(LocalSpacing.current.semiLarge),
+                            activeColor = Color.Black,
+                            inactiveColor = Color.LightGray,
+                            indicatorWidth = LocalSpacing.current.small,
+                            indicatorHeight = LocalSpacing.current.small,
+                            indicatorShape = CircleShape
+                        )
 
-            LaunchedEffect(key1 = pagerState.currentPage) {
-                delay(6000)
-                var newPosition = pagerState.currentPage + 1
-                if (newPosition > sliderList.size - 1) newPosition = 0
-                pagerState.scrollToPage(newPosition)
+                    }
+                }
+
+                LaunchedEffect(key1 = pagerState.currentPage) {
+                    delay(6000)
+                    var newPosition = pagerState.currentPage + 1
+                    if (newPosition > sliderList.size - 1) newPosition = 0
+                    pagerState.scrollToPage(newPosition)
+                }
+
             }
 
         }
 
     }
+
+
 
 }
 
