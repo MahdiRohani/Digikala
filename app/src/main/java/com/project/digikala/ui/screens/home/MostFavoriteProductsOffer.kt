@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +26,7 @@ import com.project.digikala.ui.theme.darkText
 import com.project.digikala.ui.theme.extraBoldNumber
 import com.project.digikala.ui.theme.semiDarkText
 import com.project.digikala.ui.theme.spacing
+import com.project.digikala.util.Constants
 import com.project.digikala.util.DigitHelper
 
 
@@ -136,7 +138,7 @@ fun MostFavoriteProductsOffer(item : StoreProduct) {
                                 .wrapContentHeight(Alignment.CenterVertically)
                         ) {
                             Text(
-                                text = "${DigitHelper.digitByLocate(item.discountPercent.toString())}%",
+                                text = "${DigitHelper.digitByLocateAndSeparator(item.discountPercent.toString())}%",
                                 color = Color.White,
                                 style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
                                 fontWeight = FontWeight.Bold,
@@ -156,7 +158,7 @@ fun MostFavoriteProductsOffer(item : StoreProduct) {
                                 )
 
                                 Icon(
-                                    painter = painterResource(id = R.drawable.toman),
+                                    painter = currencyChangeByLanguage(),
                                     contentDescription = "",
                                     modifier = Modifier
                                         .size(MaterialTheme.spacing.semiLarge)
@@ -199,3 +201,13 @@ fun MostFavoriteProductsOffer(item : StoreProduct) {
 
 
 }
+
+@Composable
+private fun currencyChangeByLanguage(): Painter {
+    return if (Constants.USER_LANGUAGE == Constants.ENGLISH_LANG) {
+        painterResource(id = R.drawable.dollar)
+    } else {
+        painterResource(id = R.drawable.toman)
+    }
+}
+

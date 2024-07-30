@@ -1,5 +1,4 @@
 package com.project.digikala.ui.screens.home
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,8 +25,10 @@ import com.project.digikala.ui.theme.darkText
 import com.project.digikala.ui.theme.spacing
 import com.project.digikala.R
 import com.project.digikala.ui.theme.DarkCyan
+import com.project.digikala.ui.theme.DigikalaBG
 import com.project.digikala.ui.theme.DigikalaDarkRed
 import com.project.digikala.ui.theme.semiDarkText
+import com.project.digikala.util.Constants
 import com.project.digikala.util.DigitHelper
 
 
@@ -134,7 +136,7 @@ fun MostDiscountedCard(item : StoreProduct) {
                             .wrapContentHeight(Alignment.CenterVertically)
                     ) {
                         Text(
-                            text = "${DigitHelper.digitByLocate(item.discountPercent.toString())}%",
+                            text = "${DigitHelper.digitByLocateAndSeparator(item.discountPercent.toString())}%",
                             color = Color.White,
                             style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
                             fontWeight = FontWeight.Bold,
@@ -154,7 +156,7 @@ fun MostDiscountedCard(item : StoreProduct) {
                             )
 
                             Icon(
-                                painter = painterResource(id = R.drawable.toman),
+                                painter = currencyChangeByLanguage(),
                                 contentDescription = "",
                                 modifier = Modifier
                                     .size(MaterialTheme.spacing.semiLarge)
@@ -184,3 +186,13 @@ fun MostDiscountedCard(item : StoreProduct) {
 
 
 }
+
+@Composable
+private fun currencyChangeByLanguage(): Painter {
+    return if (Constants.USER_LANGUAGE == Constants.ENGLISH_LANG) {
+        painterResource(id = R.drawable.dollar)
+    } else {
+        painterResource(id = R.drawable.toman)
+    }
+}
+

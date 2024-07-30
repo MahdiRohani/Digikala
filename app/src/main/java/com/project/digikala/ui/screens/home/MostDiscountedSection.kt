@@ -1,6 +1,7 @@
 package com.project.digikala.ui.screens.home
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -14,6 +15,7 @@ import androidx.navigation.NavController
 import com.project.digikala.R
 import com.project.digikala.data.model.home.StoreProduct
 import com.project.digikala.data.remote.NetworkResult
+import com.project.digikala.ui.theme.DigikalaBG
 import com.project.digikala.ui.theme.darkText
 import com.project.digikala.ui.theme.spacing
 import com.project.digikala.viewmodel.HomeViewModel
