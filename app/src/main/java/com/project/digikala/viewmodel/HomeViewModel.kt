@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.project.digikala.data.model.home.AmazingItem
 import com.project.digikala.data.model.home.MainCategory
 import com.project.digikala.data.model.home.Slider
+import com.project.digikala.data.model.home.StoreProduct
 import com.project.digikala.data.remote.NetworkResult
 import com.project.digikala.repsitory.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +22,8 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
     val banners = MutableStateFlow<NetworkResult<List<Slider>>>(NetworkResult.Loading())
     val categories = MutableStateFlow<NetworkResult<List<MainCategory>>>(NetworkResult.Loading())
     val centerBannerItems = MutableStateFlow<NetworkResult<List<Slider>>>(NetworkResult.Loading())
+    val bestSellerItems = MutableStateFlow<NetworkResult<List<StoreProduct>>>(NetworkResult.Loading())
+    val mostVisitedItems = MutableStateFlow<NetworkResult<List<StoreProduct>>>(NetworkResult.Loading())
 
 
     suspend fun getAllDataFromServer() {
@@ -32,6 +35,8 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
             launch { banners.emit(repository.getProposalBanners()) }
             launch { categories.emit(repository.getCategories()) }
             launch { centerBannerItems.emit(repository.getCenterBanners()) }
+            launch { bestSellerItems.emit(repository.getBestsellerItems()) }
+            launch { mostVisitedItems.emit(repository.getMostVisitedItems()) }
 
 
 
