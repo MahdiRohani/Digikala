@@ -56,7 +56,7 @@ fun MostDiscountedSection(
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(MaterialTheme.spacing.small),
+                .padding(MaterialTheme.spacing.semiSmall),
             text = stringResource(id = R.string.most_discounted_products),
             textAlign = TextAlign.Right,
             style = androidx.compose.material3.MaterialTheme.typography.titleMedium,

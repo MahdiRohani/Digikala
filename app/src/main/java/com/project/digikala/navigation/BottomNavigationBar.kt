@@ -1,6 +1,7 @@
 package com.project.digikala.navigation
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.project.digikala.R
+import com.project.digikala.ui.theme.bottomBar
 import com.project.digikala.ui.theme.selectedBottomBar
 import com.project.digikala.ui.theme.unSelectedBottomBar
 import com.project.digikala.util.Constants
@@ -30,7 +32,6 @@ import java.io.StringReader
 @Composable
 fun BottomNavigationBar(
     navController: NavController,
-    modifier: Modifier = Modifier,
     onItemClick: (BottomNavItem) -> Unit
 ) {
     LocaleUtils.setLocale(LocalContext.current, Constants.USER_LANGUAGE)
@@ -66,8 +67,8 @@ fun BottomNavigationBar(
 
     if(showBottomBar){
         BottomNavigation(
-            modifier = Modifier,
-            backgroundColor = Color.White,
+            modifier = Modifier.height(60.dp),
+            backgroundColor = MaterialTheme.colors.bottomBar,
             elevation = 5.dp
         ){
             items.forEachIndexed { index, item ->  

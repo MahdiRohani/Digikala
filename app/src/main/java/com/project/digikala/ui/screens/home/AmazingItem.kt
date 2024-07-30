@@ -27,6 +27,7 @@ import com.project.digikala.R
 import com.project.digikala.ui.theme.DarkCyan
 import com.project.digikala.ui.theme.DigikalaDarkRed
 import com.project.digikala.ui.theme.DigikalaLightRed
+import com.project.digikala.ui.theme.DigikalaLightRedText
 import com.project.digikala.ui.theme.darkText
 import com.project.digikala.ui.theme.semiDarkText
 import com.project.digikala.util.DigitHelper.applyDiscount
@@ -65,7 +66,7 @@ fun AmazingItem(item: AmazingItem) {
                         .padding(start = MaterialTheme.spacing.small),
                     style = androidx.compose.material3.MaterialTheme.typography.labelSmall,
                     fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colors.DigikalaLightRed,
+                    color = MaterialTheme.colors.DigikalaLightRedText,
                 )
 
                 Spacer(modifier = Modifier.height(10.dp))
@@ -173,7 +174,7 @@ fun AmazingItem(item: AmazingItem) {
                                 fontWeight = FontWeight.SemiBold,
                             )
 
-                            Image(
+                            Icon(
                                 painter = painterResource(id = R.drawable.toman),
                                 contentDescription = "",
                                 modifier = Modifier
