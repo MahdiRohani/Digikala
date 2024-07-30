@@ -24,7 +24,7 @@ import com.project.digikala.ui.theme.darkText
 fun AmazingShowMoreItem() {
     Card(
         modifier = Modifier
-            .size(180.dp, 375.dp)
+            .size(180.dp, 365.dp)
             .padding(
                 end = MaterialTheme.spacing.medium,
                 start = MaterialTheme.spacing.semiSmall,

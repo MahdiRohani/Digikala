@@ -73,4 +73,9 @@ val Colors.semiDarkText: Color
     get() = if (isLight) Color(0xFF5C5E61) else Color(0xFFD8D8D8)
 
 
+val Colors.DigikalaLightGreen: Color
+    @Composable
+    get() = Color(0xff86bf3c)
+
+
 
