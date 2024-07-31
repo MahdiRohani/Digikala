@@ -12,6 +12,7 @@ import com.project.digikala.repsitory.BasketRepository
 import com.project.digikala.repsitory.CategoryRepository
 import com.project.digikala.repsitory.HomeRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,6 +20,13 @@ import javax.inject.Inject
 @HiltViewModel
 class BasketViewModel @Inject constructor(private val repository: BasketRepository) : ViewModel() {
 
+    val suggestedList = MutableStateFlow<NetworkResult<List<StoreProduct>>>(NetworkResult.Loading())
+
+    fun getSuggestedItems(){
+        viewModelScope.launch {
+            suggestedList.emit(repository.getSuggestedItems())
+        }
+    }
 
 
 }

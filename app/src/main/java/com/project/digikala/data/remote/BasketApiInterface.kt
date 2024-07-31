@@ -14,6 +14,10 @@ interface BasketApiInterface {
 
 
 
+    @GET("v1/getAllProducts")
+    suspend fun getSuggestedItems() : Response<ResponseResult<List<StoreProduct>>>
+
+
 
 
 

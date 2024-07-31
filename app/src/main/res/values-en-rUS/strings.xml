@@ -27,14 +27,16 @@
     <string name="mobile">Mobile</string>
     <string name="supermarket_product">Supermarket product</string>
     <string name="fashion_and_clothing">Fashion and Clothing</string>
-    <string name="native_and_local_products">native and local products</string>
-    <string name="toys_children_and_babies">Toys, children and babies</string>
+    <string name="native_and_local_products">Native and Local products</string>
+    <string name="toys_children_and_babies">Toys, Children and Babies</string>
     <string name="beauty_and_health">Beauty and Health</string>
     <string name="home_and_kitchen">Home and Kitchen</string>
     <string name="books_and_stationery">Books and stationery</string>
     <string name="sports_and_travel">Sports and Travel</string>
     <string name="cart">Cart</string>
-    <string name="next_cart_list">Next Cart List</string>
+    <string name="next_cart_list">Next cart list</string>
+    <string name="cart_is_empty">Your cart is empty!</string>
+    <string name="suggestion_for_you">Suggestion for you</string>
 
 
 </resources>

@@ -71,7 +71,7 @@ fun MostDiscountedSection(
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),
-            horizontalArrangement = Arrangement.Center
+            horizontalArrangement = Arrangement.Start
         ) {
 
             for (item in mostDiscountedList) {
