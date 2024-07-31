@@ -46,7 +46,7 @@ fun Home(
 }
 
 @Composable
-fun SwipeRefreshSection(viewModel: HomeViewModel, navController: NavHostController) {
+private fun SwipeRefreshSection(viewModel: HomeViewModel, navController: NavHostController) {
     val refreshScope = rememberCoroutineScope()
     val swipeRefreshState = rememberSwipeRefreshState(isRefreshing = false)
     SwipeRefresh(state = swipeRefreshState,
