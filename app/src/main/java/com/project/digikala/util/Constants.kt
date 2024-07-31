@@ -9,6 +9,8 @@ object Constants {
     const val DATASTORE_NAME = "DIGIKALA_DATA_STORE"
     const val BASE_URL = "https://dig-za0p.onrender.com/api/"
     const val API_KEY = BuildConfig.X_API_KEY
+    const val SHOPPING_CART_TABLE = "shopping_cart"
+    const val DATABASE_NAME = "digikala_db"
     var USER_LANGUAGE = "USER_LANGUAGE"
 
 
