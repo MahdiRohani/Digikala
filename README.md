@@ -33,7 +33,7 @@ This repository contains the source code for the Digikala project, an e-commerce
 
 ## Video Demo
 
-[![Demo Video]](screen/Screen_recording.webm)
+[![Demo Video]](screen/Screen Recording.mp4)
 
 
 ### Prerequisites
