@@ -22,7 +22,6 @@ object DatabaseModule {
             context,
             DigikalaDatabase::class.java,
             DATABASE_NAME
-
         ).build()
 
 

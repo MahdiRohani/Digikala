@@ -12,6 +12,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.project.digikala.R
+import com.project.digikala.data.model.basket.CartItem
+import com.project.digikala.data.model.basket.CartStatus
 import com.project.digikala.data.model.home.StoreProduct
 import com.project.digikala.data.remote.NetworkResult
 import com.project.digikala.ui.screens.home.MostDiscountedCard
@@ -79,7 +81,22 @@ fun SuggestListSection(
     ) {
 
         for (item in suggestedList) {
-            MostDiscountedCard(item)
+            SuggestionItemCard(item){
+                viewModel.insertCartItem(
+                    CartItem(
+                        it._id,
+                        it.discountPercent,
+                        it.image,
+                        it.name,
+                        it.price,
+                        it.seller,
+                        1,
+                        CartStatus.CURRENT_CARD
+                    )
+
+                )
+
+            }
         }
 
     }

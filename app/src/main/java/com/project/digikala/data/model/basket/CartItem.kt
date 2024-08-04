@@ -6,8 +6,7 @@ import com.project.digikala.util.Constants.SHOPPING_CART_TABLE
 
 @Entity(tableName = SHOPPING_CART_TABLE)
 data class CartItem(
-    @PrimaryKey
-    val itemId : String,
+    @PrimaryKey val itemId : String,
     val discountPercent: Int,
     val image: String,
     val name: String,
