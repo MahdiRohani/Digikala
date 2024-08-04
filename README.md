@@ -1,3 +1,4 @@
+
 # Digikala Project
 
 This repository contains the source code for the Digikala project, an e-commerce platform developed using Kotlin. The project is designed to provide a comprehensive shopping experience, including features like product listings, search functionality, and user authentication.
