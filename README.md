@@ -23,15 +23,15 @@ This repository contains the source code for the Digikala project, an e-commerce
 - **MVVM Architecture**: For maintaining a clear separation between the UI and business logic.
 
 ## Screenshots
-<img src="screen/home_screen.png" alt="Home" width="450" height="500"/>
+<img src="screen/home_screen.png" alt="Home" width="450" height="550"/>
 
-<img src="screen/home_screen2.png" alt="Home" width="450" height="500"/>
+<img src="screen/home_screen2.png" alt="Home" width="450" height="550"/>
 
-<img src="screen/category_screen.png" alt="Category" width="450" height="500"/>
+<img src="screen/category_screen.png" alt="Category" width="450" height="550"/>
 
-<img src="screen/basket_screen.png" alt="Basket" width="450" height="500"/>
+<img src="screen/basket_screen.png" alt="Basket" width="450" height="550"/>
 
-<img src="screen/ScreenRecording.gif" alt="gif" width="450" height="500"/>
+<img src="screen/ScreenRecording.gif" alt="gif" width="450" height="550"/>
 
 
 
