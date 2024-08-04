@@ -31,8 +31,8 @@ This repository contains the source code for the Digikala project, an e-commerce
 
 <img src="screen/basket_screen.png" alt="Basket" width="450" height="500"/>
 
+<img src="screen/ScreenRecording.gif" alt="gif" width="450" height="500"/>
 
-![Demo](screen/ScreenRecording.gif)
 
 
 
