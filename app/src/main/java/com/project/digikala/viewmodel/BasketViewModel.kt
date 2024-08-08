@@ -23,7 +23,7 @@ import javax.inject.Inject
 class BasketViewModel @Inject constructor(private val repository: BasketRepository) : ViewModel() {
 
     val suggestedList = MutableStateFlow<NetworkResult<List<StoreProduct>>>(NetworkResult.Loading())
-
+    val currentCartStatus : Flow<List<CartItem>> = repository.currentCartStatus
     fun getSuggestedItems(){
         viewModelScope.launch {
             suggestedList.emit(repository.getSuggestedItems())

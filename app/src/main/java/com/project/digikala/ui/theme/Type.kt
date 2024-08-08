@@ -29,6 +29,13 @@ get() = TextStyle(
     fontSize = 26.sp
 )
 
+val Typography.veryExtraSmall : TextStyle
+    @Composable
+    get() = TextStyle(
+        fontFamily = font_standard,
+        fontSize = 10.sp
+    )
+
 
 // Set of Material typography styles to start with
 val Typography = Typography(

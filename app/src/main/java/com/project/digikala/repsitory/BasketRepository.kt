@@ -3,6 +3,7 @@ package com.project.digikala.repsitory
 
 import com.project.digikala.data.db.CartDao
 import com.project.digikala.data.model.basket.CartItem
+import com.project.digikala.data.model.basket.CartStatus
 import com.project.digikala.data.model.home.StoreProduct
 import com.project.digikala.data.remote.BaseApiResponse
 import com.project.digikala.data.remote.BasketApiInterface
@@ -14,6 +15,8 @@ class BasketRepository @Inject constructor(
     private val dao: CartDao
 ) : BaseApiResponse() {
 
+    val currentCartStatus = dao.getAllItems(CartStatus.CURRENT_CARD)
+
 
     suspend fun getSuggestedItems(): NetworkResult<List<StoreProduct>> =
         safeApiCall {
@@ -23,6 +26,8 @@ class BasketRepository @Inject constructor(
     suspend fun insertCartItem(cart: CartItem) {
         dao.insertCartItem(cart)
     }
+
+
 
 
 }
