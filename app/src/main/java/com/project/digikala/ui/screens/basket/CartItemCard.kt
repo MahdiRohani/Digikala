@@ -26,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.project.digikala.R
 import com.project.digikala.data.model.basket.CartItem
@@ -39,11 +40,13 @@ import com.project.digikala.ui.theme.semiDarkText
 import com.project.digikala.ui.theme.spacing
 import com.project.digikala.ui.theme.veryExtraSmall
 import com.project.digikala.util.DigitHelper.digitByLocateAndSeparator
+import com.project.digikala.viewmodel.BasketViewModel
 
 
 @Composable
 fun CartItemCard(
-    item: CartItem
+    item: CartItem,
+    viewModel: BasketViewModel = hiltViewModel()
 ) {
 
     val count = remember {
@@ -252,6 +255,7 @@ fun CartItemCard(
                             tint = MaterialTheme.colors.digikalaRed,
                             modifier = Modifier.clickable {
                                 count.value++
+                                viewModel.changeCartItemCount(count.value, item.itemId)
                             }
                         )
                         Text(
@@ -265,7 +269,10 @@ fun CartItemCard(
                             Icon(
                                 painterResource(id = R.drawable.digit_trash),
                                 contentDescription = "increase Icon",
-                                tint = MaterialTheme.colors.digikalaRed
+                                tint = MaterialTheme.colors.digikalaRed,
+                                modifier = Modifier.clickable {
+                                    viewModel.removeCartItem(item)
+                                }
                             )
                         } else {
                             Icon(
@@ -274,6 +281,7 @@ fun CartItemCard(
                                 tint = MaterialTheme.colors.digikalaRed,
                                 modifier = Modifier.clickable {
                                     count.value--
+                                    viewModel.changeCartItemCount(count.value, item.itemId)
                                 }
                             )
                         }
