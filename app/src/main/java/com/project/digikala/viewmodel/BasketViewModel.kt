@@ -13,10 +13,13 @@ import com.project.digikala.data.remote.NetworkResult
 import com.project.digikala.repsitory.BasketRepository
 import com.project.digikala.repsitory.CategoryRepository
 import com.project.digikala.repsitory.HomeRepository
+import com.project.digikala.ui.screens.basket.BasketScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -24,7 +27,34 @@ import javax.inject.Inject
 class BasketViewModel @Inject constructor(private val repository: BasketRepository) : ViewModel() {
 
     val suggestedList = MutableStateFlow<NetworkResult<List<StoreProduct>>>(NetworkResult.Loading())
-    val currentCartStatus : Flow<List<CartItem>> = repository.currentCartStatus
+
+    private val _currentCartItems: MutableStateFlow<BasketScreenState<List<CartItem>>> =
+        MutableStateFlow(BasketScreenState.Loading)
+    val currentCartItems: StateFlow<BasketScreenState<List<CartItem>>> = _currentCartItems
+
+    private val _nextCartItems: MutableStateFlow<BasketScreenState<List<CartItem>>> =
+        MutableStateFlow(BasketScreenState.Loading)
+    val nextCartItems: StateFlow<BasketScreenState<List<CartItem>>> = _nextCartItems
+
+
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            launch {
+                repository.currentCartStatus.collectLatest { cartItems ->
+                    _currentCartItems.emit(BasketScreenState.Success(cartItems))
+                }
+            }
+
+            launch {
+                repository.nextCartItems.collectLatest { nextCartItems ->
+                    _nextCartItems.emit(BasketScreenState.Success(nextCartItems))
+                }
+            }
+        }
+    }
+
+
+
     fun getSuggestedItems(){
         viewModelScope.launch {
             suggestedList.emit(repository.getSuggestedItems())

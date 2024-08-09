@@ -30,6 +30,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import com.project.digikala.R
 import com.project.digikala.data.model.basket.CartItem
+import com.project.digikala.data.model.basket.CartStatus
 import com.project.digikala.ui.theme.DarkCyan
 import com.project.digikala.ui.theme.DigikalaLightGreen
 import com.project.digikala.ui.theme.DigikalaLightRed
@@ -46,7 +47,9 @@ import com.project.digikala.viewmodel.BasketViewModel
 @Composable
 fun CartItemCard(
     item: CartItem,
+    mode : CartStatus,
     viewModel: BasketViewModel = hiltViewModel()
+
 ) {
 
     val count = remember {
@@ -242,52 +245,75 @@ fun CartItemCard(
                         ),
 
                     ) {
-                    Row(
-                        modifier = Modifier.padding(
-                            vertical = MaterialTheme.spacing.extraSmall,
-                            horizontal = MaterialTheme.spacing.small
-                        ),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            painterResource(id = R.drawable.ic_increase_24),
-                            contentDescription = "increase Icon",
-                            tint = MaterialTheme.colors.digikalaRed,
-                            modifier = Modifier.clickable {
-                                count.value++
-                                viewModel.changeCartItemCount(count.value, item.itemId)
-                            }
-                        )
-                        Text(
-                            text = digitByLocateAndSeparator(count.value.toString()),
-                            style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
-                            fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colors.digikalaRed,
-                            modifier = Modifier.padding(MaterialTheme.spacing.medium)
-                        )
-                        if (count.value == 1) {
+                    if (mode == CartStatus.CURRENT_CARD){
+                        Row(
+                            modifier = Modifier.padding(
+                                vertical = MaterialTheme.spacing.extraSmall,
+                                horizontal = MaterialTheme.spacing.small
+                            ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             Icon(
-                                painterResource(id = R.drawable.digit_trash),
+                                painterResource(id = R.drawable.ic_increase_24),
                                 contentDescription = "increase Icon",
                                 tint = MaterialTheme.colors.digikalaRed,
                                 modifier = Modifier.clickable {
-                                    viewModel.removeCartItem(item)
-                                }
-                            )
-                        } else {
-                            Icon(
-                                painterResource(id = R.drawable.ic_decrease_24),
-                                contentDescription = "increase Icon",
-                                tint = MaterialTheme.colors.digikalaRed,
-                                modifier = Modifier.clickable {
-                                    count.value--
+                                    count.value++
                                     viewModel.changeCartItemCount(count.value, item.itemId)
                                 }
                             )
+                            Text(
+                                text = digitByLocateAndSeparator(count.value.toString()),
+                                style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colors.digikalaRed,
+                                modifier = Modifier.padding(MaterialTheme.spacing.medium)
+                            )
+                            if (count.value == 1) {
+                                Icon(
+                                    painterResource(id = R.drawable.digit_trash),
+                                    contentDescription = "increase Icon",
+                                    tint = MaterialTheme.colors.digikalaRed,
+                                    modifier = Modifier.clickable {
+                                        viewModel.removeCartItem(item)
+                                    }
+                                )
+                            } else {
+                                Icon(
+                                    painterResource(id = R.drawable.ic_decrease_24),
+                                    contentDescription = "increase Icon",
+                                    tint = MaterialTheme.colors.digikalaRed,
+                                    modifier = Modifier.clickable {
+                                        count.value--
+                                        viewModel.changeCartItemCount(count.value, item.itemId)
+                                    }
+                                )
+                            }
+
+
                         }
+                    }else{
+                        Row(
+                            modifier = Modifier.padding(
+                                vertical = MaterialTheme.spacing.small,
+                                horizontal = 48.dp
+                            ),
+                            verticalAlignment = Alignment.CenterVertically
+                        ){
+                            Icon(
+                            painterResource(id = R.drawable.basket),
+                            contentDescription = "basket",
+                            tint = MaterialTheme.colors.digikalaRed,
+                            modifier = Modifier
+                                .size(28.dp)
+                                .clickable {
+                                viewModel.changeCartItemStatus(CartStatus.CURRENT_CARD, item.itemId)
+                            }
+                        )
 
-
+                        }
                     }
+
 
 
                 }
@@ -313,20 +339,41 @@ fun CartItemCard(
 
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.semiLarge))
 
-            Row(modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.End
-            ) {
-                Text(
-                    text = stringResource(id = R.string.save_to_next_list),
-                    fontWeight = FontWeight.Light,
-                    style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colors.DarkCyan
-                )
-                Icon(imageVector = Icons.Filled.KeyboardArrowLeft, contentDescription = "",
-                    tint = MaterialTheme.colors.DarkCyan)
+            if (mode == CartStatus.CURRENT_CARD){
+                Row(modifier = Modifier.fillMaxWidth()
+                    .clickable { viewModel.changeCartItemStatus(CartStatus.NEXT_CART, item.itemId) },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.save_to_next_list),
+                        fontWeight = FontWeight.Light,
+                        style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colors.DarkCyan
+                    )
+                    Icon(imageVector = Icons.Filled.KeyboardArrowLeft, contentDescription = "",
+                        tint = MaterialTheme.colors.DarkCyan)
 
+                }
+            }else{
+                Row(modifier = Modifier.fillMaxWidth()
+                    .clickable { viewModel.removeCartItem(item) },
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.End
+                ) {
+                    Text(
+                        text = stringResource(id = R.string.delete_from_list),
+                        fontWeight = FontWeight.Light,
+                        style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colors.DigikalaLightRed
+                    )
+                    Icon(imageVector = Icons.Filled.KeyboardArrowLeft, contentDescription = "",
+                        tint = MaterialTheme.colors.DigikalaLightRed)
+
+                }
             }
+
+
 
 
         }
