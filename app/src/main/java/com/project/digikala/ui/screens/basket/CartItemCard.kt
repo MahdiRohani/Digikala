@@ -82,7 +82,7 @@ fun CartItemCard(
                         color = MaterialTheme.colors.darkText
                     )
                     Text(
-                        text = "${digitByLocateAndSeparator(count.value.toString())}  کالا",
+                        text = "${digitByLocateAndSeparator(count.value.toString())} ${stringResource(R.string.goods)}",
                         style = androidx.compose.material3.MaterialTheme.typography.labelMedium,
                         color = Color.Gray
                     )
@@ -307,8 +307,11 @@ fun CartItemCard(
                             modifier = Modifier
                                 .size(28.dp)
                                 .clickable {
-                                viewModel.changeCartItemStatus(CartStatus.CURRENT_CARD, item.itemId)
-                            }
+                                    viewModel.changeCartItemStatus(
+                                        CartStatus.CURRENT_CARD,
+                                        item.itemId
+                                    )
+                                }
                         )
 
                         }
@@ -318,29 +321,40 @@ fun CartItemCard(
 
                 }
                 Spacer(modifier = Modifier.padding(MaterialTheme.spacing.semiMedium))
+                val discountAmount = (item.price * item.discountPercent) / 100
 
-                Row {
-                    Text(
-                        text = digitByLocateAndSeparator(item.price.toString()),
-                        style = androidx.compose.material3.MaterialTheme.typography.labelLarge,
+                Column() {
+                    Text(text = "${digitByLocateAndSeparator(discountAmount.toString())} ${stringResource(
+                        id = R.string.discount)}",
+                        style = androidx.compose.material3.MaterialTheme.typography.veryExtraSmall,
                         fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colors.darkText
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.toman), contentDescription = "",
-                        modifier = Modifier
-                            .size(24.dp)
-                            .padding(MaterialTheme.spacing.extraSmall)
-                    )
+                        color = MaterialTheme.colors.DigikalaLightRed)
+                    Row {
+                        Text(
+                            text = digitByLocateAndSeparator(item.price.toString()),
+                            style = androidx.compose.material3.MaterialTheme.typography.labelLarge,
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colors.darkText
+                        )
+                        Icon(
+                            painter = painterResource(id = R.drawable.toman), contentDescription = "",
+                            modifier = Modifier
+                                .size(24.dp)
+                                .padding(MaterialTheme.spacing.extraSmall)
+                        )
 
+                    }
                 }
+
+
 
             }
 
             Spacer(modifier = Modifier.height(MaterialTheme.spacing.semiLarge))
 
             if (mode == CartStatus.CURRENT_CARD){
-                Row(modifier = Modifier.fillMaxWidth()
+                Row(modifier = Modifier
+                    .fillMaxWidth()
                     .clickable { viewModel.changeCartItemStatus(CartStatus.NEXT_CART, item.itemId) },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.End
@@ -356,7 +370,8 @@ fun CartItemCard(
 
                 }
             }else{
-                Row(modifier = Modifier.fillMaxWidth()
+                Row(modifier = Modifier
+                    .fillMaxWidth()
                     .clickable { viewModel.removeCartItem(item) },
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.End
